@@ -42,12 +42,26 @@ export class LoginLit extends LitElement {
         return html`
             <div class="container">
                 <h2>Login LitElement</h2>
-                <input type="email" placeholder="Write your email">
-                <input type="password" placeholder="Password">
+                <input id="email" type="email" placeholder="Write your email">
+                <input id="password" type="password" placeholder="Password">
 
-                <button>Sign in</button>
+                <button @click="${this._login}">Sign in</button>
             </div>
         `;
+    }
+
+    _login() {
+        const email = this.shadowRoot.querySelector("#email").value;
+        const pass = this.shadowRoot.querySelector("#password").value;
+
+        if (!!email && !!pass) {
+            this.dispatchEvent(new CustomEvent('sign', 
+            {
+                detail: { login: true },
+                bubbles: true,
+                composed: true
+            }))
+        }
     }
 }
 

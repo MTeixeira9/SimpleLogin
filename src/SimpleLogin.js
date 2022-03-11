@@ -4,6 +4,7 @@ import './login-lit';
 export class SimpleLogin extends LitElement {
   static get properties() {
     return {
+      success: { type: Boolean }
     };
   }
 
@@ -25,7 +26,15 @@ export class SimpleLogin extends LitElement {
 
   render() {
     return html`
-      <login-lit></login-lit>
+      ${
+        this.success ?
+        html `<h1>Welcome</h1>` :
+        html `<login-lit @sign="${ this._hiddenLogin }"></login-lit>`
+      }      
     `;
+  }
+
+  _hiddenLogin() {
+    this.success = true;
   }
 }
